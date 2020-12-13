@@ -17,8 +17,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def destroy
-    item = Item.find_by(merchant_id: params[:id])
-    Item.delete(item.id)
+    Item.delete(Item.find_by(merchant_id: params[:id]))
     render json: Merchant.delete(params[:id])
   end
 
