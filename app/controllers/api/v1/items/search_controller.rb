@@ -1,6 +1,6 @@
-class API::V1::Merchants::SearchController < ApplicationController
+class Api::V1::Items::SearchController < ApplicationController
 
   def show
-    render json: Item.find(params[:id])
+    render json: Item.find(params[:id]).merchant
   end
 end
