@@ -3,16 +3,24 @@ require "rails_helper"
 describe "Merchants API" do
   it "sends related items" do
     merchant_1 = create(:merchant)
-    require "pry"; binding.pry
-     merchant_1.items.create!(name: "Fries", description: "Deliciouso!", unit_price: 100.0)
-     merchant_1.items.create!(name: "Ketchup", description: "It's red.", unit_price: 200.0)
-     merchant_1.items.create!(name: "Mustard", description: "It's yellow.", unit_price: 300.0)
-   merchant_2 = create(:merchant)
-     item_2 = merchant_2.items.create!(name: "Rose", description: "red", unit_price: 400.0)
+    id = merchant_1.id
 
-    require "pry"; binding.pry
+     merchant_1.items.create!(name: "Mayfly", description: "Dry Fly", unit_price: 3.5)
+     merchant_1.items.create!(name: "Wooly Booger", description: "Dry Fly", unit_price: 4.00)
+     merchant_1.items.create!(name: "San Juan Worm", description: "Worm", unit_price: 1.00)
+     merchant_2 = create(:merchant)
+     item_2 = merchant_2.items.create!(name: "Nymph", description: "Nymph", unit_price: 1.00)
 
-    get "/api/v1/merchants/"
+    get "/api/v1/merchants/#{id}/items"
 
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items.count).to eq(3)
+
+    items.each do |item|
+      expect(Item.find(item[:id])).to_not eq(item_2)
+    end
   end
 end
