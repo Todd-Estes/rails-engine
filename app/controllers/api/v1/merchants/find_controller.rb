@@ -1,4 +1,4 @@
-class Api::V1::Merchants::FindController < ApplicationController
+class Api::V1::Merchants::FindController < ApplicationController  
 
   def show
     if params[:name]
@@ -10,16 +10,13 @@ class Api::V1::Merchants::FindController < ApplicationController
       update_time = params[:updated_at]
       merchant = update_search(update_time)
     end
-    # merchant = search(name)
-    # merchant = ci_name_find(name)
-    # merchant = find_format(name)
     render json: MerchantSerializer.new(merchant)
   end
 
 
 
   private
-
+  # refactor these into merchant model methods; delete one of these name methods
   def search(name)
       Merchant.where("name ILIKE ?", "%#{params[:name]}%").first
   end
@@ -35,15 +32,4 @@ class Api::V1::Merchants::FindController < ApplicationController
   def update_search(update_time)
     Merchant.where(updated_at: update_time).first
   end
-
-
 end
-
-
-# def ci_name_find(name)
-#   Merchant.where('LOWER(merchants.name) = LOWER(?)', name)
-# end
-#
-# def ci_name_find_all(name)
-#   where('LOWER(merchants.name) = LOWER(?)', name)
-# end
