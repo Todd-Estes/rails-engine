@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 2020_12_11_205140) do
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 
-  add_foreign_key "invoice_items", "customers"
+  add_foreign_key "invoice_items", "items"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "merchants"
-  add_foreign_key "items", "merchants", on_delete: :cascade
+  add_foreign_key "items", "merchants"
   add_foreign_key "transactions", "invoices"
 end
