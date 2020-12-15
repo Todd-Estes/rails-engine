@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "Single Finder for merchant" do
   it "can return a single record that matches a set criteria" do
-    merchant_1 = Merchant.create!(name: "Ringworm Treatment",
+    merchant_1 = Merchant.create!(name: "Ring World",
       created_at: "Thu, 12 Oct 2013 13:47:38 UTC +00:00",
       updated_at: "Thu, 22 Oct 2014 13:47:38 UTC +00:00")
     merchant_2 = Merchant.create!(name: "Turing",
@@ -50,7 +50,7 @@ describe "Single Finder for merchant" do
     search_3 = {
       updated_at: "Thu, 15 Oct 2020 13:47:38 UTC +00:00"
     }
-    
+
     # get '/api/v1/merchants/find', params: search_3
     get "/api/v1/merchants/find?updated_at=#{merchant_2.updated_at}"
 
