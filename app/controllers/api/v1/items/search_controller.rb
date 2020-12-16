@@ -1,6 +1,7 @@
 class Api::V1::Items::SearchController < ApplicationController
 
   def show
-    render json: Item.find(params[:id]).merchant
+    merchant = Item.find(params[:id]).merchant
+    merchant  = render json: MerchantSerializer.new(merchant)
   end
 end
