@@ -1,8 +1,8 @@
 class Api::V1::Merchants::MostRevenueController < ApplicationController
 
   def index
-    found_merchants = Merchant.most_revenue(params[:quantity])
-    render json: MerchantSerializer.new(found_merchants)
+    top_merchants = Merchant.most_revenue(params[:quantity])
+    render json: MerchantSerializer.new(top_merchants)
   end
 
 end
