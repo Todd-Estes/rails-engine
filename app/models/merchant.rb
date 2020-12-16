@@ -12,16 +12,34 @@ class Merchant < ApplicationRecord
   #   WHERE transactions.result = 'success' GROUP BY merchants.id
   #   ORDER BY revenue DESC LIMIT 3;
   # end
+  # #
+  # def most_revenue(quantity)
+  #   select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_prices) AS revenue")
+  #     .joins(invoices: [:invoice_items, :transactions])
+  #     .merge(Transaction.unscoped.successful)
+  #     .merge(Invoice.unscoped.successful)
+  #     .group(:id)
+  #     .order('revenue DESC')
+  #     .limit(quantity)
+  # end
   #
-  def most_revenue(quantity)
-    select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_prices) AS revenue")
+  # # def most_items(quantity)
+  # #   SELECT merchants.*, SUM(invoice_items.quantity) AS items_sold
+  # #   FROM "merchants" INNER JOIN "invoices"
+  # #   ON "invoices"."merchant_id" = "merchants"."id"
+  # #   INNER JOIN "invoice_items" ON "invoice_items"."invoice_id" = "invoices"."id"
+  # #   INNER JOIN "transactions" ON "transactions"."invoice_id" = "invoices"."id"
+  # #   WHERE "transactions"."result" = 'success' AND "invoices"."status" = 'shipped'
+  # #   GROUP BY "merchants"."id" ORDER BY items_sold DESC LIMIT 3;
+  # # end
+  #
+  def most_items(quantity)
+    select("merchants.*, SUM(invoice_items.quantity) AS items_sold")
       .joins(invoices: [:invoice_items, :transactions])
       .merge(Transaction.unscoped.successful)
       .merge(Invoice.unscoped.successful)
       .group(:id)
-      .order('revenue DESC')
-      limit(quantity)
+      .order('items_sold DESC')
+      .limit(quantity)
   end
-
-
 end
