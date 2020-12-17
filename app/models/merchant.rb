@@ -47,11 +47,12 @@ class Merchant < ApplicationRecord
   #   SELECT SUM(invoice_items.quantity * invoice_items.unit_price) FROM merchants INNER JOIN invoices ON merchants.id = invoices.merchant_id INNER JOIN invoice_items ON invoice_items.invoice_id = invoices.id INNER JOIN transactions ON invoices.id = transactions.invoice_id WHERE transactions.result = 'success' AND "invoices"."status" = 'shipped' AND merchants.id = 1;
   # end
 
-  def self.revenue
-    Invoice.joins(:invoice_items, :transactions)
+  def self.revenue(merchant_id)
+    total_revenue = self.joins(invoices: [:invoice_items, :transactions])
       .merge(Transaction.unscoped.successful)
       .merge(Invoice.unscoped.successful)
-      .where(merchant_id: self.id)
+      .where(id: merchant_id)
       .sum('unit_price * quantity')
+    Revenue.new(total_revenue)
     end
 end
