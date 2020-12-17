@@ -5,10 +5,7 @@ class Api::V1::Merchants::SearchController < ApplicationController
   end
 
   def show
-    require "pry"; binding.pry
     results = Merchant.revenue(params[:id])
-    require "pry"; binding.pry
-    rev = render json: RevenueSerializer.new(results)
-    require "pry"; binding.pry
+    render json: RevenueSerializer.new(results)
   end
 end
