@@ -16,7 +16,8 @@ describe "Items API" do
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
-    expect(merchant[:id]).to eq(item_1.merchant.id)
-    expect(merchant[:id]).to_not eq(item_2.merchant.id)
+
+    expect(merchant[:data][:id].to_i).to eq(item_1.merchant.id)
+    expect(merchant[:data][:id].to_i).to_not eq(item_2.merchant.id)
   end
 end

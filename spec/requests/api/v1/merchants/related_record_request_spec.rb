@@ -16,12 +16,11 @@ describe "Merchants API" do
     expect(response).to be_successful
 
     items = JSON.parse(response.body, symbolize_names: true)
-    
 
-    expect(items.count).to eq(3)
+    expect(items[:data].count).to eq(3)
 
-    items.each do |item|
-      expect(Item.find(item[:id])).to_not eq(item_2)
+    items[:data].each do |item|
+      expect(Item.find(item[:attributes][:id])).to_not eq(item_2)
     end
   end
 end
