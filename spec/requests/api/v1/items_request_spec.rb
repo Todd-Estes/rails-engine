@@ -67,7 +67,7 @@ describe "Items API" do
                      })
       headers = {"CONTENT_TYPE" => "application/json"}
 
-      post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+      post "/api/v1/items", headers: headers, params: JSON.generate(item_params)
       created_item = Item.last
 
       expect(response).to be_successful
@@ -77,11 +77,17 @@ describe "Items API" do
     it "can update an existing item" do
       id = create(:item).id
       previous_name = Item.last.name
-      item_params = { name: "San Juan Worm" }
+      # item_params = { name: "San Juan Worm" }
       headers = {"CONTENT_TYPE" => "application/json"}
 
-      patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
+      patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate( name: "San Juan Worm", description: "They're worms, man")
+
+      # response = conn('/api/v1/items/75').patch do |request|
+      #     request.body = body
+
       item = Item.find_by(id: id)
+
+
 
       expect(response).to be_successful
       expect(item.name).to_not eq(previous_name)

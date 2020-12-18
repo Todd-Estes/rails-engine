@@ -12,15 +12,16 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    # item =  Item.create!(item_params)
-    # render json: ItemSerializer.new(item)
-    item = render json: ItemSerializer.new(Item.create(name: params[:name], description: params[:description], unit_price: params[:unit_price], merchant_id: params[:merchant_id]))
+    render json: ItemSerializer.new(Item.create(item_params))
+    # render json: ItemSerializer.new(Item.create(name: params[:name], description: params[:description], unit_price: params[:unit_price], merchant_id: params[:merchant_id]))
   end
 
   def update
     item = Item.find(params[:id])
-    item.update(name: params[:name], description: params[:description], unit_price: params[:unit_price], merchant_id: params[:merchant_id])
-    render json: ItemSerializer.new(item)
+    item.update(item_params)
+    # item.update(name: params[:name], description: params[:description], unit_price: params[:unit_price], merchant_id: params[:merchant_id])
+    update = render json: ItemSerializer.new(item)
+    # render json: ItemSerializer.new(item)
     # render json: Item.update(params[:id], item_params)
   end
 
@@ -32,8 +33,8 @@ class Api::V1::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :unit_price, :merchant_id, :updated_at, :created_at)
-    # params.permit(:name, :description, :unit_price, :merchant_id)
+    # params.require(:item).permit(:name, :description, :unit_price, :merchant_id, :updated_at, :created_at)
+    params.permit(:name, :description, :unit_price, :merchant_id)
   end
 
 end
