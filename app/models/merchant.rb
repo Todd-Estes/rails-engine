@@ -34,8 +34,6 @@ class Merchant < ApplicationRecord
       .order('items_sold DESC')
       .limit(quantity)
   end
-  #
-
 
   def self.revenue(merchant_id)
     total_revenue = self.joins(invoices: [:invoice_items, :transactions])

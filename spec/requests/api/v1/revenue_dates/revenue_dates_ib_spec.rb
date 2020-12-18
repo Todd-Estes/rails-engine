@@ -49,6 +49,4 @@ describe "Revenue_dates Business Intelligence Endpoint:" do
       expect(json[:data][:id]).to be_nil
       expect(json[:data][:attributes][:revenue].to_f.round(2)).to eq(5100.0)
     end
-
-
   end

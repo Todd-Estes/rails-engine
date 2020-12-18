@@ -110,6 +110,9 @@ describe "Merchant Business Intelligence Endpoints:" do
     expect(json[:data][0][:attributes][:name]).to eq(merchant_1.name)
     expect(json[:data][0][:id].to_i).to eq(merchant_1.id)
 
+    expect(json[:data][1][:attributes][:name]).to_not eq(merchant_5.name)
+    expect(json[:data][1][:id].to_i).to_not eq(merchant_5.id)
+
     expect(json[:data][1][:attributes][:name]).to eq(merchant_2.name)
     expect(json[:data][1][:id].to_i).to eq(merchant_2.id)
 
@@ -139,8 +142,5 @@ describe "Merchant Business Intelligence Endpoints:" do
 
       expect(json[:data][:id]).to be_nil
       expect(json[:data][:attributes][:revenue].to_f.round(2)).to eq(13500.0)
-
-
-
     end
   end

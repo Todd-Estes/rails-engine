@@ -84,9 +84,7 @@ describe "Items API" do
 
       patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate( name: "San Juan Worm", description: "They're worms, man")
 
-      # response = conn('/api/v1/items/75').patch do |request|
-      #     request.body = body
-
+    
       item = Item.find_by(id: id)
 
 
