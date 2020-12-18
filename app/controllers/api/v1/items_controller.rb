@@ -5,7 +5,6 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    require "pry"; binding.pry
     render json: ItemSerializer.new(Item.find(params[:id]))
   end
 

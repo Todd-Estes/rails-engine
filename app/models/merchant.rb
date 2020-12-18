@@ -3,6 +3,18 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :customers, through: :invoices
 
+  def self.search(name)
+      where("name ILIKE ?", "%#{name}%")
+  end
+
+  def self.create_search(create_time)
+    where(created_at: create_time)
+  end
+
+  def self.update_search(update_time)
+    where(updated_at: update_time)
+  end
+
   def self.most_revenue(quantity)
     select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
       .joins(invoices: [:invoice_items, :transactions])
