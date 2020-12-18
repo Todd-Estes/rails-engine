@@ -1,23 +1,11 @@
 FactoryBot.define do
-  factory :item do
-    name { "Mayfly"}
-    description { "Dry Fly"}
-    unit_price { 3.50 }
-    # created_at { Time.now }
-    # updated_at { Time.now }
-    merchant
-  end
-
-  factory :merchant do
-    name { "Charlies Fly Box"}
-    # name { Faker::Merchant.name }
-    # created_at { Time.now }
-    # updated_at { Time.now }
-  end
-
-  def merchant_with_items(items_count: 5)
-    FactoryBot.create(:merchant) do |merchant|
-      FatoryBot.create_list(:items, items_count, merchant: merchant)
+  FactoryBot.define do
+    factory :item do
+      name { Faker::Games::Zelda.item }
+      description { Faker::Lorem.paragraph(sentence_count: 20, supplemental: true, random_sentences_to_add: 4) }
+      merchant_id { Faker::Number.within(range: 1..10000) }
+      unit_price { Faker::Number.decimal(l_digits: (Faker::Number.within(range: 1..10)), r_digits: 2 ) }
+      merchant
     end
   end
 end

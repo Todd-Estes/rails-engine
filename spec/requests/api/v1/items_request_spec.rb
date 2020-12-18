@@ -12,7 +12,9 @@ describe "Items API" do
       items = JSON.parse(response.body, symbolize_names: true)
 
 
+
       expect(items[:data].count).to eq (3)
+
 
       items[:data].each do |item|
         expect(item).to have_key(:id)
