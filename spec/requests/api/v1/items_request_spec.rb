@@ -12,7 +12,9 @@ describe "Items API" do
       items = JSON.parse(response.body, symbolize_names: true)
 
 
+
       expect(items[:data].count).to eq (3)
+
 
       items[:data].each do |item|
         expect(item).to have_key(:id)
@@ -67,7 +69,7 @@ describe "Items API" do
                      })
       headers = {"CONTENT_TYPE" => "application/json"}
 
-      post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+      post "/api/v1/items", headers: headers, params: JSON.generate(item_params)
       created_item = Item.last
 
       expect(response).to be_successful
@@ -77,11 +79,15 @@ describe "Items API" do
     it "can update an existing item" do
       id = create(:item).id
       previous_name = Item.last.name
-      item_params = { name: "San Juan Worm" }
+      # item_params = { name: "San Juan Worm" }
       headers = {"CONTENT_TYPE" => "application/json"}
 
-      patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
+      patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate( name: "San Juan Worm", description: "They're worms, man")
+
+    
       item = Item.find_by(id: id)
+
+
 
       expect(response).to be_successful
       expect(item.name).to_not eq(previous_name)
@@ -94,7 +100,7 @@ describe "Items API" do
 
       expect(Item.count).to eq(1)
 
-      delete "/api/v1/merchants/#{merchant_id}"
+      delete "/api/v1/items/#{item.id}"
 
 
       expect(response).to be_successful

@@ -14,10 +14,10 @@ class Invoice < ApplicationRecord
   scope :successful, -> { where(status: "shipped") }
 
   def self.revenue_dates(start_date, end_date)
-    total = Invoice.joins(:invoice_items, :transactions)
+    total = joins(:invoice_items, :transactions)
       .merge(Transaction.unscoped.successful)
       .merge(Invoice.unscoped.successful)
-      .where(created_at: Date.parse(start_date.to_s).beginning_of_day..Date.parse(end_date.to_s).end_of_day)
+      .where(created_at: Date.parse(start_date).beginning_of_day...Date.parse(end_date).end_of_day)
       .sum('invoice_items.quantity * invoice_items.unit_price')
     Revenue.new(total)
   end

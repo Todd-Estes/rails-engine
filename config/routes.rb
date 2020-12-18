@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get '/revenue', to: 'dates_revenue#show'
+      get '/revenue', to: 'revenue_dates#show'
       namespace :merchants do
         get '/most_revenue', to: 'most_revenue#index'
         get '/most_items', to: 'most_items#index'

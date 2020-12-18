@@ -5,7 +5,6 @@ class Api::V1::Merchants::SearchController < ApplicationController
   end
 
   def show
-    results = Merchant.revenue(params[:id])
-    render json: RevenueSerializer.new(results)
+    render json: RevenueSerializer.new(Merchant.revenue(params[:id]))
   end
 end
