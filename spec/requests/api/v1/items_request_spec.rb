@@ -102,7 +102,7 @@ describe "Items API" do
 
       expect(Item.count).to eq(1)
 
-      delete "/api/v1/merchants/#{merchant_id}"
+      delete "/api/v1/items/#{item.id}"
 
 
       expect(response).to be_successful

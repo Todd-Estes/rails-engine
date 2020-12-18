@@ -35,10 +35,6 @@ class Api::V1::Merchants::FindController < ApplicationController
       Merchant.where("name ILIKE ?", "%#{params[:name]}%")
   end
 
-  def find_format(name)
-    Merchant.where("lower(name) LIKE lower(?)", "%#{name}%")
-  end
-
   def create_search(create_time)
     Merchant.where(created_at: create_time)
   end
